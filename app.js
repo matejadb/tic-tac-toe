@@ -13,7 +13,9 @@ function Gameboard() {
 	const getBoard = () => board;
 
 	const placeToken = (row, column, player) => {
-		if (board[row][column].getValue() !== 0) return;
+		if (board[row][column].getValue() !== 0) {
+			return false;
+		}
 		board[row][column].addToken(player);
 	};
 
@@ -84,6 +86,13 @@ function GameController() {
 const game = GameController();
 game.playRound(1, 1);
 game.playRound(1, 1);
-game.playRound(1, 0);
-game.playRound(1, 1);
-game.playRound(1, 2);
+//game.playRound(1, 0);
+//game.playRound(1, 1);
+//game.playRound(1, 2);
+
+/* 
+	TODO:
+		- Keep players from playing in spots that are taken
+		- Check for wins
+		- Check for ties
+*/
