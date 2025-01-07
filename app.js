@@ -13,10 +13,7 @@ function Gameboard() {
 	const getBoard = () => board;
 
 	const placeToken = (row, column, player) => {
-		const availableCell = board
-			.filter((row) => row[column].getValue() === 0)
-			.map((row) => row[column]);
-
+		if (board[row][column].getValue() !== 0) return;
 		board[row][column].addToken(player);
 	};
 
@@ -86,5 +83,7 @@ function GameController() {
 
 const game = GameController();
 game.playRound(1, 1);
-game.playRound(0, 0);
+game.playRound(1, 1);
 game.playRound(1, 0);
+game.playRound(1, 1);
+game.playRound(1, 2);
