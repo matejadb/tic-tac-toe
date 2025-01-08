@@ -89,10 +89,10 @@ function GameController() {
 			}
 		}
 
-		/* console.log(gameColumn);
-		console.log(gameRow);
-		console.log(primDiag);
-		console.log(secDiag); */
+		console.log("Column: " + gameColumn);
+		console.log("Row: " + gameRow);
+		console.log("Primary diagonal" + primDiag);
+		console.log("Secondary diagonal: " + secDiag);
 
 		if (gameColumn[0] === gameColumn[1] && gameColumn[0] === gameColumn[2]) {
 			console.log(`${getActivePlayer().name} wins`);
@@ -100,13 +100,17 @@ function GameController() {
 		} else if (gameRow[0] === gameRow[1] && gameRow[0] === gameRow[2]) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
-		} else if (primDiag[0] === primDiag[1] && primDiag[0] === primDiag[2]) {
+		} else if (
+			primDiag[0] !== 0 &&
+			primDiag[0] === primDiag[1] &&
+			primDiag[0] === primDiag[2]
+		) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		} else if (
+			secDiag[0] !== 0 &&
 			secDiag[0] === secDiag[1] &&
-			secDiag[0] === secDiag[2] &&
-			secDiag[0] !== 0
+			secDiag[0] === secDiag[2]
 		) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
@@ -128,22 +132,43 @@ function GameController() {
 	return { playRound, getActivePlayer };
 }
 
-const game = GameController();
-//game.playRound(0, 0);
-//game.playRound(1, 1);
-//game.playRound(0, 1);
-//game.playRound(1, 2);
-//game.playRound(0, 2);
+function player1Row() {
+	game.playRound(0, 0); // Player 1 places "X"
+	game.playRound(1, 0); // Player 2 places "O"
+	game.playRound(0, 1); // Player 1 places "X"
+	game.playRound(1, 1); // Player 2 places "O"
+	game.playRound(0, 2); // Player 1 places "X" - WIN!
+}
 
-game.playRound(0, 0); // Player 1 places "X" at (0, 0)
-game.playRound(0, 1); // Player 2 places "O" at (0, 1)
-game.playRound(0, 2); // Player 1 places "X" at (0, 2)
-game.playRound(1, 0); // Player 2 places "O" at (1, 0)
-game.playRound(1, 1); // Player 1 places "X" at (1, 1)
-game.playRound(1, 2); // Player 2 places "O" at (1, 2)
-game.playRound(2, 0); // Player 1 places "X" at (2, 0)
-//game.playRound(2, 1); // Player 2 places "O" at (2, 1)
-//game.playRound(2, 2); // Player 1 places "X" at (2, 2)
+function player1Column() {
+	game.playRound(0, 0); // Player 1 places "X"
+	game.playRound(0, 1); // Player 2 places "O"
+	game.playRound(1, 0); // Player 1 places "X"
+	game.playRound(1, 1); // Player 2 places "O"
+	game.playRound(2, 0); // Player 1 places "X" - WIN!
+}
+
+function player1primDiag() {
+	game.playRound(0, 0); // Player 1 places "X"
+	game.playRound(0, 1); // Player 2 places "O"
+	game.playRound(1, 1); // Player 1 places "X"
+	game.playRound(0, 2); // Player 2 places "O"
+	game.playRound(2, 2); // Player 1 places "X" - WIN!
+}
+
+function player1secDiag() {
+	game.playRound(0, 2); // Player 1 places "X" in top-right
+	game.playRound(0, 0); // Player 2 places "O"
+	game.playRound(1, 1); // Player 1 places "X" in center
+	game.playRound(0, 1); // Player 2 places "O"
+	game.playRound(2, 0); // Player 1 places "X" in bottom-left - WIN!
+}
+
+const game = GameController();
+//player1Row();
+//player1Column();
+//player1primDiag();
+//player1secDiag();
 
 /* 
 	TODO:
