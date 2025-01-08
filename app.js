@@ -14,7 +14,7 @@ function Gameboard() {
 
 	const placeToken = (row, column, player) => {
 		if (board[row][column].getValue() !== 0) {
-			return false;
+			return;
 		}
 		board[row][column].addToken(player);
 	};
@@ -71,11 +71,24 @@ function GameController() {
 		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
+	const checkWin = (row, column) => {
+		const gameColumn = board.getBoard().map((row) => row[column].getValue());
+		console.log(gameColumn);
+		//const gameColumn = board.getBoard().map((column) => column[row].getValue());
+		//console.log(gameRow);
+		if (gameColumn[0] === gameColumn[1] && gameColumn[0] === gameColumn[2]) {
+			console.log(`${getActivePlayer().name} wins`);
+			return true;
+		}
+	};
+
 	const playRound = (row, column) => {
-		console.log("test");
 		board.placeToken(row, column, getActivePlayer().token);
-		switchPlayerTurn();
-		printNewRound();
+		if (!checkWin(row, column)) {
+			switchPlayerTurn();
+			printNewRound();
+		}
+		board.printBoard();
 	};
 
 	printNewRound();
@@ -84,11 +97,22 @@ function GameController() {
 }
 
 const game = GameController();
+game.playRound(0, 0); // Player 1 places "X" at (0, 0)
 game.playRound(1, 1);
-game.playRound(1, 1);
-//game.playRound(1, 0);
+game.playRound(1, 0);
+game.playRound(1, 2);
+game.playRound(2, 0);
+//game.playRound(0, 1); // Player 2 places "O" at (0, 1)
 //game.playRound(1, 1);
-//game.playRound(1, 2);
+//game.playRound(2, 1); // Player 2 places "O" at (0, 1)
+/* 
+game.playRound(0, 2); // Player 1 places "X" at (0, 2)
+game.playRound(1, 0); // Player 2 places "O" at (1, 0)
+game.playRound(1, 1); // Player 1 places "X" at (1, 1)
+game.playRound(1, 2); // Player 2 places "O" at (1, 2)
+game.playRound(2, 0); // Player 1 places "X" at (2, 0)
+game.playRound(2, 1); // Player 2 places "O" at (2, 1)
+game.playRound(2, 2); // Player 1 places "X" at (2, 2) */
 
 /* 
 	TODO:
