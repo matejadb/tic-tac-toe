@@ -101,11 +101,20 @@ function GameController() {
 }
 
 const game = GameController();
-game.playRound(0, 0);
+/* game.playRound(0, 0);
 game.playRound(1, 1);
 game.playRound(0, 1);
 game.playRound(1, 2);
-game.playRound(0, 2);
+game.playRound(0, 2); */
+game.playRound(0, 0); // Player 1 places "X" at (0, 0)
+game.playRound(0, 1); // Player 2 places "O" at (0, 1)
+game.playRound(0, 2); // Player 1 places "X" at (0, 2)
+game.playRound(1, 0); // Player 2 places "O" at (1, 0)
+game.playRound(1, 1); // Player 1 places "X" at (1, 1)
+game.playRound(1, 2); // Player 2 places "O" at (1, 2)
+game.playRound(2, 0); // Player 1 places "X" at (2, 0)
+game.playRound(2, 1); // Player 2 places "O" at (2, 1)
+game.playRound(2, 2); // Player 1 places "X" at (2, 2)
 
 /* 
 	TODO:
