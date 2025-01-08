@@ -202,5 +202,5 @@ const game = GameController();
 /* 
 	TODO:
 		- Keep players from playing in spots that are taken
-		- Check for ties
+		- Start DOM
 */
