@@ -89,10 +89,10 @@ function GameController() {
 			}
 		}
 
-		console.log(gameColumn);
+		/* console.log(gameColumn);
 		console.log(gameRow);
 		console.log(primDiag);
-		console.log(secDiag);
+		console.log(secDiag); */
 
 		if (gameColumn[0] === gameColumn[1] && gameColumn[0] === gameColumn[2]) {
 			console.log(`${getActivePlayer().name} wins`);
@@ -118,8 +118,9 @@ function GameController() {
 		if (!checkWin(row, column)) {
 			switchPlayerTurn();
 			printNewRound();
+		} else {
+			board.printBoard();
 		}
-		board.printBoard();
 	};
 
 	printNewRound();
@@ -147,6 +148,5 @@ game.playRound(2, 0); // Player 1 places "X" at (2, 0)
 /* 
 	TODO:
 		- Keep players from playing in spots that are taken
-		- Check for wins
 		- Check for ties
 */
