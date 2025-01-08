@@ -71,6 +71,19 @@ function GameController() {
 		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
+	const checkTie = () => {
+		const isBoardFull = board
+			.getBoard()
+			.every((row) => row.every((cell) => cell.getValue() !== 0));
+
+		if (isBoardFull) {
+			console.log("It's a tie!");
+			return true;
+		}
+
+		return false;
+	};
+
 	const checkWin = (row, column) => {
 		const gameColumn = board.getBoard().map((row) => row[column].getValue());
 		const gameRow = board.getBoard()[row].map((row) => row.getValue());
@@ -113,6 +126,10 @@ function GameController() {
 			secDiag[0] === secDiag[2]
 		) {
 			console.log(`${getActivePlayer().name} wins`);
+			return true;
+		}
+
+		if (checkTie()) {
 			return true;
 		}
 	};
@@ -164,12 +181,24 @@ function player1secDiag() {
 	game.playRound(2, 0); // Player 1 places "X" in bottom-left - WIN!
 }
 
+function tie() {
+	game.playRound(0, 1); // Player 1 places "X"
+	game.playRound(0, 0); // Player 2 places "O"
+	game.playRound(1, 0); // Player 1 places "X"
+	game.playRound(0, 2); // Player 2 places "O"
+	game.playRound(1, 1); // Player 1 places "X"
+	game.playRound(1, 2); // Player 2 places "O"
+	game.playRound(2, 0); // Player 1 places "X"
+	game.playRound(2, 1); // Player 2 places "O"
+	game.playRound(2, 2); // Player 1 places "X" - **Tie!**
+}
+
 const game = GameController();
 //player1Row();
 //player1Column();
 //player1primDiag();
 //player1secDiag();
-
+//tie();
 /* 
 	TODO:
 		- Keep players from playing in spots that are taken
