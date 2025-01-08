@@ -74,13 +74,27 @@ function GameController() {
 	const checkWin = (row, column) => {
 		const gameColumn = board.getBoard().map((row) => row[column].getValue());
 		const gameRow = board.getBoard()[row].map((row) => row.getValue());
+		const mainDiag = [];
+
+		for (let i = 0; i < board.getBoard().length; i++) {
+			for (let j = 0; j < board.getBoard().length; j++) {
+				if (i === j) {
+					mainDiag.push(board.getBoard()[i][j].getValue());
+				}
+			}
+		}
+
 		console.log(gameColumn);
 		console.log(gameRow);
+		console.log(mainDiag);
 
 		if (gameColumn[0] === gameColumn[1] && gameColumn[0] === gameColumn[2]) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		} else if (gameRow[0] === gameRow[1] && gameRow[0] === gameRow[2]) {
+			console.log(`${getActivePlayer().name} wins`);
+			return true;
+		} else if (mainDiag[0] === mainDiag[1] && mainDiag[0] === mainDiag[2]) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		}
@@ -101,11 +115,12 @@ function GameController() {
 }
 
 const game = GameController();
-/* game.playRound(0, 0);
-game.playRound(1, 1);
-game.playRound(0, 1);
-game.playRound(1, 2);
-game.playRound(0, 2); */
+//game.playRound(0, 0);
+//game.playRound(1, 1);
+//game.playRound(0, 1);
+//game.playRound(1, 2);
+//game.playRound(0, 2);
+
 game.playRound(0, 0); // Player 1 places "X" at (0, 0)
 game.playRound(0, 1); // Player 2 places "O" at (0, 1)
 game.playRound(0, 2); // Player 1 places "X" at (0, 2)
