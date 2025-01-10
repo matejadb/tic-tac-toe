@@ -45,18 +45,18 @@ function Cell() {
 }
 
 function GameController() {
-	playerOneName = "Player One";
-	playerTwoName = "Player Two";
+	/* playerOneName = "Player One";
+	playerTwoName = "Player Two"; */
 
 	const board = Gameboard();
 
 	const players = [
 		{
-			name: playerOneName,
+			name: "",
 			token: "X",
 		},
 		{
-			name: playerTwoName,
+			name: "",
 			token: "O",
 		},
 	];
@@ -151,13 +151,15 @@ function GameController() {
 		}
 	};
 
-	printNewRound();
+	//printNewRound();
 
 	return {
 		playRound,
 		getActivePlayer,
 		getBoard: board.getBoard,
 		switchPlayerTurn,
+		players,
+		activePlayer,
 	};
 }
 
@@ -196,6 +198,9 @@ function ScreenController() {
 	function startMenuHandler(e) {
 		mainMenuDiv.classList.add("hidden");
 		gameDiv.classList.add("visible");
+		game.players[0].name = document.getElementById("player-one").value;
+		game.players[1].name = document.getElementById("player-two").value;
+		updateScreen();
 	}
 	startButton.addEventListener("click", startMenuHandler);
 
@@ -209,8 +214,6 @@ function ScreenController() {
 		updateScreen();
 	}
 	boardDiv.addEventListener("click", clickHandlerBoard);
-
-	updateScreen();
 }
 
 ScreenController();
