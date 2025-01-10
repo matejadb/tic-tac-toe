@@ -131,10 +131,6 @@ function GameController() {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		}
-
-		if (checkTie()) {
-			return true;
-		}
 	};
 
 	const playRound = (row, column) => {
@@ -170,8 +166,6 @@ function ScreenController() {
 	const mainMenuDiv = document.querySelector(".main-menu");
 	const gameDiv = document.querySelector(".container");
 	const startButton = document.querySelector(".start");
-
-	const mainMenu = () => {};
 
 	const updateScreen = () => {
 		boardDiv.textContent = "";
@@ -220,6 +214,7 @@ ScreenController();
 
 /* 
 	TODO:
+		- Style Main Menu
 		- Add result screen
 		- Add restart button
 */
