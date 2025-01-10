@@ -131,6 +131,10 @@ function GameController() {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		}
+
+		if (checkTie()) {
+			return true;
+		}
 	};
 
 	const playRound = (row, column) => {

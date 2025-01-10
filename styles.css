@@ -41,8 +41,40 @@ body {
 .player-info {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 30px;
 	height: 300px;
+}
+
+.player-info div {
+	display: flex;
+	align-items: center;
+}
+
+.player-info label {
+	font-size: 3rem;
+}
+
+.player-info input {
+	height: 3rem;
+	width: 20rem;
+	border: none;
+	border-radius: 25px;
+	background-color: #e2e8f0;
+	font-size: 2rem;
+	margin-left: 20px;
+	text-align: center;
+}
+
+.start {
+	height: 4rem;
+	width: 10rem;
+	font-size: 2rem;
+	border: none;
+}
+
+.start:hover {
+	cursor: pointer;
 }
 
 /* GAME SCREEN */
