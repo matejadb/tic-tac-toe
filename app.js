@@ -220,7 +220,6 @@ ScreenController();
 
 /* 
 	TODO:
-		- Add option to change names
-		- Add start button
+		- Add result screen
 		- Add restart button
 */
