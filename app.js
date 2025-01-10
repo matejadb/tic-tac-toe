@@ -12,11 +12,14 @@ function Gameboard() {
 
 	const getBoard = () => board;
 
+	const isValidPlacement = (row, column) => {
+		return board[row][column].getValue() === "";
+	};
+
 	const placeToken = (row, column, player) => {
-		if (board[row][column].getValue() !== "") {
+		if (!isValidPlacement(row, column)) {
 			return;
-		}
-		board[row][column].addToken(player);
+		} else board[row][column].addToken(player);
 	};
 
 	const printBoard = () => {
@@ -26,7 +29,7 @@ function Gameboard() {
 		console.log(boardWithCellValues);
 	};
 
-	return { getBoard, placeToken, printBoard };
+	return { getBoard, placeToken, printBoard, isValidPlacement };
 }
 
 function Cell() {
@@ -135,6 +138,10 @@ function GameController() {
 	};
 
 	const playRound = (row, column) => {
+		if (!board.isValidPlacement(row, column)) {
+			console.log("no");
+			return;
+		}
 		board.placeToken(row, column, getActivePlayer().token);
 		if (!checkWin(row, column)) {
 			switchPlayerTurn();
@@ -146,7 +153,12 @@ function GameController() {
 
 	printNewRound();
 
-	return { playRound, getActivePlayer, getBoard: board.getBoard };
+	return {
+		playRound,
+		getActivePlayer,
+		getBoard: board.getBoard,
+		switchPlayerTurn,
+	};
 }
 
 function ScreenController() {
@@ -200,8 +212,8 @@ ScreenController();
 
 /* 
 	TODO:
-		- Keep players from playing in spots that are taken
 		- Style the game
 		- Add option to change names
+		- Add start button
 		- Add restart button
 */
