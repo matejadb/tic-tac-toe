@@ -212,7 +212,6 @@ ScreenController();
 
 /* 
 	TODO:
-		- Style the game
 		- Add option to change names
 		- Add start button
 		- Add restart button
