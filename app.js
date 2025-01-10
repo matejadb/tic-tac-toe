@@ -218,7 +218,6 @@ ScreenController();
 
 /* 
 	TODO:
-		- Style Main Menu
 		- Add result screen
 		- Add restart button
 */
