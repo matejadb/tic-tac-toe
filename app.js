@@ -165,6 +165,11 @@ function ScreenController() {
 	const game = GameController();
 	const playerTurnDiv = document.querySelector(".turn");
 	const boardDiv = document.querySelector(".board");
+	const mainMenuDiv = document.querySelector(".main-menu");
+	const gameDiv = document.querySelector(".container");
+	const startButton = document.querySelector(".start");
+
+	const mainMenu = () => {};
 
 	const updateScreen = () => {
 		boardDiv.textContent = "";
@@ -187,6 +192,12 @@ function ScreenController() {
 			});
 		});
 	};
+
+	function startMenuHandler(e) {
+		mainMenuDiv.classList.add("hidden");
+		gameDiv.classList.add("visible");
+	}
+	startButton.addEventListener("click", startMenuHandler);
 
 	function clickHandlerBoard(e) {
 		const selectedColumn = e.target.dataset.column;
