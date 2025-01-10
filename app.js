@@ -13,7 +13,7 @@ function Gameboard() {
 	const getBoard = () => board;
 
 	const placeToken = (row, column, player) => {
-		if (board[row][column].getValue() !== 0) {
+		if (board[row][column].getValue() !== "") {
 			return;
 		}
 		board[row][column].addToken(player);
@@ -30,7 +30,7 @@ function Gameboard() {
 }
 
 function Cell() {
-	let value = 0;
+	let value = "";
 
 	const addToken = (player) => {
 		value = player;
@@ -74,7 +74,7 @@ function GameController() {
 	const checkTie = () => {
 		const isBoardFull = board
 			.getBoard()
-			.every((row) => row.every((cell) => cell.getValue() !== 0));
+			.every((row) => row.every((cell) => cell.getValue() !== ""));
 
 		if (isBoardFull) {
 			console.log("It's a tie!");
@@ -114,14 +114,14 @@ function GameController() {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		} else if (
-			primDiag[0] !== 0 &&
+			primDiag[0] !== "" &&
 			primDiag[0] === primDiag[1] &&
 			primDiag[0] === primDiag[2]
 		) {
 			console.log(`${getActivePlayer().name} wins`);
 			return true;
 		} else if (
-			secDiag[0] !== 0 &&
+			secDiag[0] !== "" &&
 			secDiag[0] === secDiag[1] &&
 			secDiag[0] === secDiag[2]
 		) {
@@ -181,7 +181,6 @@ function ScreenController() {
 		});
 	};
 
-	// Add event listener for the board
 	function clickHandlerBoard(e) {
 		const selectedColumn = e.target.dataset.column;
 		const selectedRow = e.target.dataset.row;
@@ -193,65 +192,15 @@ function ScreenController() {
 	}
 	boardDiv.addEventListener("click", clickHandlerBoard);
 
-	// Initial render
 	updateScreen();
-
-	// We don't need to return anything from this module because everything is encapsulated inside this screen controller.
 }
 
 ScreenController();
 
-/* function player1Row() {
-	game.playRound(0, 0); // Player 1 places "X"
-	game.playRound(1, 0); // Player 2 places "O"
-	game.playRound(0, 1); // Player 1 places "X"
-	game.playRound(1, 1); // Player 2 places "O"
-	game.playRound(0, 2); // Player 1 places "X" - WIN!
-}
-
-function player1Column() {
-	game.playRound(0, 0); // Player 1 places "X"
-	game.playRound(0, 1); // Player 2 places "O"
-	game.playRound(1, 0); // Player 1 places "X"
-	game.playRound(1, 1); // Player 2 places "O"
-	game.playRound(2, 0); // Player 1 places "X" - WIN!
-}
-
-function player1primDiag() {
-	game.playRound(0, 0); // Player 1 places "X"
-	game.playRound(0, 1); // Player 2 places "O"
-	game.playRound(1, 1); // Player 1 places "X"
-	game.playRound(0, 2); // Player 2 places "O"
-	game.playRound(2, 2); // Player 1 places "X" - WIN!
-}
-
-function player1secDiag() {
-	game.playRound(0, 2); // Player 1 places "X" in top-right
-	game.playRound(0, 0); // Player 2 places "O"
-	game.playRound(1, 1); // Player 1 places "X" in center
-	game.playRound(0, 1); // Player 2 places "O"
-	game.playRound(2, 0); // Player 1 places "X" in bottom-left - WIN!
-}
-
-function tie() {
-	game.playRound(0, 1); // Player 1 places "X"
-	game.playRound(0, 0); // Player 2 places "O"
-	game.playRound(1, 0); // Player 1 places "X"
-	game.playRound(0, 2); // Player 2 places "O"
-	game.playRound(1, 1); // Player 1 places "X"
-	game.playRound(1, 2); // Player 2 places "O"
-	game.playRound(2, 0); // Player 1 places "X"
-	game.playRound(2, 1); // Player 2 places "O"
-	game.playRound(2, 2); // Player 1 places "X" - **Tie!**
-}
-
-player1Row();
-player1Column();
-player1primDiag();
-player1secDiag();
-tie(); */
 /* 
 	TODO:
 		- Keep players from playing in spots that are taken
-		- Start DOM
+		- Style the game
+		- Add option to change names
+		- Add restart button
 */
