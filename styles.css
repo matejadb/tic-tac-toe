@@ -1,4 +1,21 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.jersey-10-regular {
+	font-family: "Jersey 10", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.container {
+	text-align: center;
+}
+
 .board {
+	margin: auto;
 	display: grid;
 	height: 500px;
 	width: 500px;
@@ -7,7 +24,7 @@
 	border: 1px solid black;
 	gap: 2px;
 	padding: 2px;
-	background-color: yellow;
+	background-color: #e6300d;
 }
 
 .cell {
@@ -15,8 +32,9 @@
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	font-size: 2rem;
+	font-size: 5rem;
+	color: white;
 	border: 1px solid grey;
-	background: lightyellow;
+	background: #e6be60;
 	cursor: pointer;
 }

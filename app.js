@@ -171,6 +171,7 @@ function ScreenController() {
 				// Anything clickable should be a button!!
 				const cellButton = document.createElement("button");
 				cellButton.classList.add("cell");
+				cellButton.classList.add("jersey-10-regular");
 				// Create a data attribute to identify the column
 				// This makes it easier to pass into our `playRound` function
 				cellButton.dataset.row = rowIndex;
