@@ -146,10 +146,62 @@ function GameController() {
 
 	printNewRound();
 
-	return { playRound, getActivePlayer };
+	return { playRound, getActivePlayer, getBoard: board.getBoard };
 }
 
-function player1Row() {
+function ScreenController() {
+	const game = GameController();
+	const playerTurnDiv = document.querySelector(".turn");
+	const boardDiv = document.querySelector(".board");
+
+	const updateScreen = () => {
+		// clear the board
+		boardDiv.textContent = "";
+
+		// get the newest version of the board and player turn
+		const board = game.getBoard();
+		const activePlayer = game.getActivePlayer();
+
+		// Display player's turn
+		playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+		// Render board squares
+		board.forEach((row, rowIndex) => {
+			row.forEach((cell, columnIndex) => {
+				// Anything clickable should be a button!!
+				const cellButton = document.createElement("button");
+				cellButton.classList.add("cell");
+				// Create a data attribute to identify the column
+				// This makes it easier to pass into our `playRound` function
+				cellButton.dataset.row = rowIndex;
+				cellButton.dataset.column = columnIndex;
+				cellButton.textContent = cell.getValue();
+				boardDiv.appendChild(cellButton);
+			});
+		});
+	};
+
+	// Add event listener for the board
+	function clickHandlerBoard(e) {
+		const selectedColumn = e.target.dataset.column;
+		const selectedRow = e.target.dataset.row;
+		// Make sure I've clicked a column and not the gaps in between
+		if (!selectedColumn || !selectedRow) return;
+
+		game.playRound(selectedRow, selectedColumn);
+		updateScreen();
+	}
+	boardDiv.addEventListener("click", clickHandlerBoard);
+
+	// Initial render
+	updateScreen();
+
+	// We don't need to return anything from this module because everything is encapsulated inside this screen controller.
+}
+
+ScreenController();
+
+/* function player1Row() {
 	game.playRound(0, 0); // Player 1 places "X"
 	game.playRound(1, 0); // Player 2 places "O"
 	game.playRound(0, 1); // Player 1 places "X"
@@ -193,12 +245,11 @@ function tie() {
 	game.playRound(2, 2); // Player 1 places "X" - **Tie!**
 }
 
-const game = GameController();
-//player1Row();
-//player1Column();
-//player1primDiag();
-//player1secDiag();
-//tie();
+player1Row();
+player1Column();
+player1primDiag();
+player1secDiag();
+tie(); */
 /* 
 	TODO:
 		- Keep players from playing in spots that are taken
