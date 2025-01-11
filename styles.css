@@ -66,15 +66,32 @@ body {
 	text-align: center;
 }
 
-.start {
+.start,
+.restart-button {
 	height: 4rem;
 	width: 10rem;
 	font-size: 2rem;
 	border: none;
 }
 
-.start:hover {
+.start:hover,
+.restart-button:hover {
 	cursor: pointer;
+}
+
+/* RESTART SCREEN */
+.restart {
+	display: none;
+}
+
+.restart.visible {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.restart-button {
+	margin-bottom: 5rem;
 }
 
 /* GAME SCREEN */
@@ -101,6 +118,10 @@ body {
 	gap: 2px;
 	padding: 2px;
 	background-color: #e6300d;
+}
+
+.turn {
+	margin-top: 2rem;
 }
 
 .cell {

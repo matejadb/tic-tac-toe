@@ -26,7 +26,6 @@ function Gameboard() {
 		boardWithCellValues = board.map((row) =>
 			row.map((cell) => cell.getValue())
 		);
-		console.log(boardWithCellValues);
 	};
 
 	return { getBoard, placeToken, printBoard, isValidPlacement };
@@ -45,10 +44,8 @@ function Cell() {
 }
 
 function GameController() {
-	/* playerOneName = "Player One";
-	playerTwoName = "Player Two"; */
-
 	const board = Gameboard();
+	let gameOver = false;
 
 	const players = [
 		{
@@ -71,7 +68,6 @@ function GameController() {
 
 	const printNewRound = () => {
 		board.printBoard();
-		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
 	const checkTie = () => {
@@ -80,7 +76,6 @@ function GameController() {
 			.every((row) => row.every((cell) => cell.getValue() !== ""));
 
 		if (isBoardFull) {
-			console.log("It's a tie!");
 			return true;
 		}
 
@@ -105,53 +100,51 @@ function GameController() {
 			}
 		}
 
-		console.log("Column: " + gameColumn);
-		console.log("Row: " + gameRow);
-		console.log("Primary diagonal" + primDiag);
-		console.log("Secondary diagonal: " + secDiag);
-
 		if (gameColumn[0] === gameColumn[1] && gameColumn[0] === gameColumn[2]) {
-			console.log(`${getActivePlayer().name} wins`);
+			gameOver = true;
 			return true;
 		} else if (gameRow[0] === gameRow[1] && gameRow[0] === gameRow[2]) {
-			console.log(`${getActivePlayer().name} wins`);
+			gameOver = true;
 			return true;
 		} else if (
 			primDiag[0] !== "" &&
 			primDiag[0] === primDiag[1] &&
 			primDiag[0] === primDiag[2]
 		) {
-			console.log(`${getActivePlayer().name} wins`);
+			gameOver = true;
 			return true;
 		} else if (
 			secDiag[0] !== "" &&
 			secDiag[0] === secDiag[1] &&
 			secDiag[0] === secDiag[2]
 		) {
-			console.log(`${getActivePlayer().name} wins`);
+			gameOver = true;
 			return true;
 		}
 
 		if (checkTie()) {
+			gameOver = true;
 			return true;
 		}
+
+		return false;
 	};
 
 	const playRound = (row, column) => {
+		if (gameOver) return;
+
 		if (!board.isValidPlacement(row, column)) {
-			console.log("no");
 			return;
 		}
 		board.placeToken(row, column, getActivePlayer().token);
-		if (!checkWin(row, column)) {
-			switchPlayerTurn();
-			printNewRound();
-		} else {
-			board.printBoard();
-		}
-	};
 
-	//printNewRound();
+		if (checkWin(row, column)) {
+			gameOver = true;
+			return;
+		}
+		switchPlayerTurn();
+		printNewRound();
+	};
 
 	return {
 		playRound,
@@ -159,17 +152,29 @@ function GameController() {
 		getBoard: board.getBoard,
 		switchPlayerTurn,
 		players,
-		activePlayer,
+		checkTie,
+		isGameOver: () => gameOver,
 	};
 }
 
-function ScreenController() {
+(function ScreenController() {
 	const game = GameController();
 	const playerTurnDiv = document.querySelector(".turn");
 	const boardDiv = document.querySelector(".board");
 	const mainMenuDiv = document.querySelector(".main-menu");
 	const gameDiv = document.querySelector(".container");
 	const startButton = document.querySelector(".start");
+	const restartDiv = document.querySelector(".restart");
+	const restartButton = document.querySelector(".restart-button");
+
+	const restartScreen = () => {
+		if (game.checkTie()) {
+			playerTurnDiv.textContent = "It's a tie";
+		} else {
+			playerTurnDiv.textContent = game.getActivePlayer().name + " wins!";
+		}
+		restartDiv.classList.add("visible");
+	};
 
 	const updateScreen = () => {
 		boardDiv.textContent = "";
@@ -202,6 +207,11 @@ function ScreenController() {
 	}
 	startButton.addEventListener("click", startMenuHandler);
 
+	function restartHandler(e) {
+		window.location.reload();
+	}
+	restartButton.addEventListener("click", restartHandler);
+
 	function clickHandlerBoard(e) {
 		const selectedColumn = e.target.dataset.column;
 		const selectedRow = e.target.dataset.row;
@@ -209,15 +219,11 @@ function ScreenController() {
 		if (!selectedColumn || !selectedRow) return;
 
 		game.playRound(selectedRow, selectedColumn);
+
 		updateScreen();
+		if (game.isGameOver()) {
+			restartScreen();
+		}
 	}
 	boardDiv.addEventListener("click", clickHandlerBoard);
-}
-
-ScreenController();
-
-/* 
-	TODO:
-		- Add result screen
-		- Add restart button
-*/
+})();
